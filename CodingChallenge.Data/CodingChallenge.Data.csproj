@@ -53,7 +53,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\FormaGeometrica.cs" />
+    <Compile Include="Domain\Forms\Circle.cs" />
+    <Compile Include="Domain\Forms\EquilateralTriangle.cs" />
+    <Compile Include="Domain\Forms\GeometricForm.cs" />
+    <Compile Include="Domain\Forms\TypeForm.cs" />
+    <Compile Include="Domain\Idioms\English.cs" />
+    <Compile Include="Domain\Idioms\French.cs" />
+    <Compile Include="Domain\Idioms\Idiom.cs" />
+    <Compile Include="Domain\Forms\Rectangle.cs" />
+    <Compile Include="Domain\Forms\Square.cs" />
+    <Compile Include="Domain\Forms\Trapeze.cs" />
+    <Compile Include="Domain\Idioms\Spanish.cs" />
+    <Compile Include="Domain\Idioms\TypeIdiom.cs" />
+    <Compile Include="Helpers\FigureResults.cs" />
+    <Compile Include="Helpers\Report.cs" />
+    <Compile Include="Helpers\ReportLineByFigure.cs" />
+    <Compile Include="Helpers\ResultForReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CalculateReport.cs" />
+    <Compile Include="Service\ICalculateReport.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
