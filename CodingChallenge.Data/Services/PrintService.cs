@@ -1,7 +1,5 @@
-﻿using CodingChallenge.Data.Domain;
-using CodingChallenge.Data.Interfaces;
+﻿using CodingChallenge.Data.Interfaces;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CodingChallenge.Data.Services
 {
@@ -13,8 +11,6 @@ namespace CodingChallenge.Data.Services
             _print = print;
         }
 
-        public string Print(IList<IGeometricForm> geometricForms) {
-            return _print.CreatePrint(geometricForms);
-        }
+        public string Print(IList<IGeometricForm> geometricForms) => _print.CreatePrint(geometricForms);
     }
 }

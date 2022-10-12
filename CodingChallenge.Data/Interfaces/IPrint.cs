@@ -1,5 +1,4 @@
-﻿using CodingChallenge.Data.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CodingChallenge.Data.Interfaces
 {

@@ -51,7 +51,6 @@ namespace CodingChallenge.Data.Services
             return sb.ToString();
         }
 
-
         private static string GetLine(int count, decimal area, decimal perimeter, string type)
         {
             if (count > 0)

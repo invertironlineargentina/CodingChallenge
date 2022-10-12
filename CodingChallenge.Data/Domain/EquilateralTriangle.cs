@@ -13,7 +13,7 @@ namespace CodingChallenge.Data.Domain
         }
 
         public decimal CalculateArea() => ((decimal)Math.Sqrt(3) / 4) * _lado * _lado;
-        
+
         public decimal CalculatePerimeter() => _lado * 3;
     }
 }
