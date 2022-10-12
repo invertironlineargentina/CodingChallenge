@@ -13,6 +13,6 @@ namespace CodingChallenge.Data.Domain
 
         public decimal CalculateArea() => _lado * _lado;
         
-        public decimal CalculatePerimeter() => _lado + _lado;
+        public decimal CalculatePerimeter() => _lado * 4;
     }
 }

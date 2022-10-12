@@ -1,6 +1,8 @@
 ﻿namespace CodingChallenge.Data.Interfaces
 {
-    public interface IGeometricForm : IOperation
+    public interface IGeometricForm
     {
+        decimal CalculateArea();
+        decimal CalculatePerimeter();
     }
 }

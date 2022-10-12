@@ -59,5 +59,122 @@ namespace CodingChallenge.Data.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area.
+        /// </summary>
+        internal static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Circle.
+        /// </summary>
+        internal static string Circle {
+            get {
+                return ResourceManager.GetString("Circle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Circles.
+        /// </summary>
+        internal static string CirclePlural {
+            get {
+                return ResourceManager.GetString("CirclePlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triangle.
+        /// </summary>
+        internal static string EquilateralTriangle {
+            get {
+                return ResourceManager.GetString("EquilateralTriangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Triangles.
+        /// </summary>
+        internal static string EquilateralTrianglePlural {
+            get {
+                return ResourceManager.GetString("EquilateralTrianglePlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;h1&gt;Shapes report&lt;/h1&gt;.
+        /// </summary>
+        internal static string Header {
+            get {
+                return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;h1&gt;Empty list of shapes!&lt;/h1&gt;.
+        /// </summary>
+        internal static string ListEmpty {
+            get {
+                return ResourceManager.GetString("ListEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Perimeter.
+        /// </summary>
+        internal static string Perimeter {
+            get {
+                return ResourceManager.GetString("Perimeter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rectangle.
+        /// </summary>
+        internal static string Rectangle {
+            get {
+                return ResourceManager.GetString("Rectangle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rectangles.
+        /// </summary>
+        internal static string RectanglePlural {
+            get {
+                return ResourceManager.GetString("RectanglePlural", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shapes.
+        /// </summary>
+        internal static string Shapes {
+            get {
+                return ResourceManager.GetString("Shapes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square.
+        /// </summary>
+        internal static string Square {
+            get {
+                return ResourceManager.GetString("Square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Squares.
+        /// </summary>
+        internal static string SquarePlural {
+            get {
+                return ResourceManager.GetString("SquarePlural", resourceCulture);
+            }
+        }
     }
 }

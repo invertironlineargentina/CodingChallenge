@@ -1,16 +1,20 @@
 ﻿using CodingChallenge.Data.Domain.Enum;
 using CodingChallenge.Data.Interfaces;
-using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading;
 
 namespace CodingChallenge.Data.Services
 {
-    public class PrintEnglish : IPrint
+    public class PrintEnglish : GeneratePrint
     {
         private readonly string _language = Language.English;
-        public string CreatePrint(IList<IGeometricForm> geometricForms)
+
+        public PrintEnglish()
         {
-            throw new NotImplementedException();
+            Thread.CurrentThread.CurrentCulture = new CultureInfo(_language);
         }
     }
 }

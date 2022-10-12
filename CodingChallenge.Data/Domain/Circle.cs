@@ -3,7 +3,7 @@ using System;
 
 namespace CodingChallenge.Data.Domain
 {
-    internal class Circle : IGeometricForm
+    public class Circle : IGeometricForm
     {
         private decimal _radius { get; set; }
 
