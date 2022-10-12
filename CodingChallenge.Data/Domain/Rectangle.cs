@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodingChallenge.Data.Interfaces;
 
 namespace CodingChallenge.Data.Domain
 {
-    internal class Rectangle
+    public class Rectangle : IGeometricForm
     {
+        private decimal _ladoA { get; set; }
+        private decimal _ladoB { get; set; }
+
+        public Rectangle(decimal ladoA, decimal ladoB)
+        {
+            _ladoA = ladoA;
+            _ladoB = ladoB;
+        }
+
+        public decimal CalculateArea() => _ladoA * _ladoB;
+
+        public decimal CalculatePerimeter() => 2 * (_ladoA + _ladoB);
     }
 }

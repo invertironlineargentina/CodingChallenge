@@ -107,5 +107,35 @@ namespace CodingChallenge.Data.Tests
                 "<h1>Reporte de Formas</h1>2 Cuadrados | Area 29 | Perimetro 28 <br/>2 Círculos | Area 13,01 | Perimetro 18,06 <br/>3 Triángulos | Area 49,64 | Perimetro 51,6 <br/>TOTAL:<br/>7 Formas Perimetro 97,66 Area 91,65",
                 result);
         }
+
+        [TestCase]
+        public void TestResumenListaConMasTiposEnCastellanoIncluyendoNuevaForma()
+        {
+            //Arrange
+            IList<IGeometricForm> geometricForms = new List<IGeometricForm>
+            {
+                new Square(5),
+                new Circle(3),
+                new EquilateralTriangle(4),
+                new Square(2),
+                new Rectangle(5,6),
+                new EquilateralTriangle(9),
+                new Circle(2.75m),
+                new EquilateralTriangle(4.2m),
+                new Rectangle(4,8)
+            };
+            PrintService printService = new PrintService(new PrintSpanish());
+            //Act
+            string result = printService.Print(geometricForms);
+            //Assert
+            Assert.AreEqual(
+                "<h1>Reporte de Formas</h1>" +
+                "2 Cuadrados | Area 29 | Perimetro 28 <br/>" +
+                "2 Círculos | Area 13,01 | Perimetro 18,06 <br/>" +
+                "3 Triángulos | Area 49,64 | Perimetro 51,6 <br/>" +
+                "2 Rectangulos | Area 62 | Perimetro 46 <br/>" +
+                "TOTAL:<br/>9 Formas Perimetro 143,66 Area 153,65",
+                result);
+        }
     }
 }

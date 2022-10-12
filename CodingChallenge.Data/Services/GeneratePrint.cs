@@ -26,34 +26,26 @@ namespace CodingChallenge.Data.Services
                 {
                     decimal area = g.CalculateArea();
                     decimal perimeter = g.CalculatePerimeter();
-                    int count = 1;
                     if (keyValuePairs.Any(x => x.Key == g.GetType().Name))
                     {
                         var pair = keyValuePairs.Where(x => x.Key == g.GetType().Name).FirstOrDefault();
-                        count = (int)pair.Value[0] + 1;
                         area += pair.Value[1];
                         perimeter += pair.Value[2];
-                        keyValuePairs[pair.Key] = new decimal[] { count, area, perimeter };
+                        keyValuePairs[pair.Key] = new decimal[] { (int)pair.Value[0] + 1, area, perimeter };
                         continue;
                     }
-                    keyValuePairs.Add(g.GetType().Name, new decimal[] { count, area, perimeter });
+                    keyValuePairs.Add(g.GetType().Name, new decimal[] { 1, area, perimeter });
                 }
-                int total = 0;
-                decimal totalA = 0;
-                decimal totalP = 0;
                 foreach (var kv in keyValuePairs)
                 {
-                    total += (int)kv.Value[0];
-                    totalA += kv.Value[1];
-                    totalP += kv.Value[2];
                     sb.Append(GetLine((int)kv.Value[0], kv.Value[1], kv.Value[2], kv.Key));
                 }
 
                 // FOOTER
                 sb.Append("TOTAL:<br/>");
-                sb.Append($"{total} {Properties.Resources.Shapes} ");
-                sb.Append($"{Properties.Resources.Perimeter} {totalP.ToString("#.##")} ");
-                sb.Append($"{Properties.Resources.Area} {totalA.ToString("#.##")}");
+                sb.Append($"{keyValuePairs.Sum(x => x.Value[0])} {Properties.Resources.Shapes} ");
+                sb.Append($"{Properties.Resources.Perimeter} {keyValuePairs.Sum(x => x.Value[2]):#.##} ");
+                sb.Append($"{Properties.Resources.Area} {keyValuePairs.Sum(x => x.Value[1]):#.##}");
             }
 
             return sb.ToString();
