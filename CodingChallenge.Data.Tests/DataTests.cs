@@ -34,6 +34,18 @@ namespace CodingChallenge.Data.Tests
         }
 
         [TestCase]
+        public void TestResumenListaVaciaEnPortugues()
+        {
+            //Arrange
+            IList<IGeometricForm> geometricForms = new List<IGeometricForm>();
+            IReportingService reportingSvc = new ReportingService(new PrintPortuguese());
+            //Act
+            string result = reportingSvc.Print(geometricForms);
+            //Assert
+            Assert.AreEqual("<h1>Lista vazia de formas!</h1>", result);
+        }
+
+        [TestCase]
         public void TestResumenListaConUnCuadrado()
         {
             //Arrange
@@ -60,6 +72,23 @@ namespace CodingChallenge.Data.Tests
             string result = reportingSvc.Print(squares);
             //Assert
             Assert.AreEqual("<h1>Shapes report</h1>3 Squares | Area 35 | Perimeter 36 <br/>TOTAL:<br/>3 Shapes Perimeter 36 Area 35", result);
+        }
+
+        [TestCase]
+        public void TestResumenListaConMasRectangulosEnPortugues()
+        {
+            //Arrange
+            IList<IGeometricForm> rectangles = new List<IGeometricForm>
+            {
+                new Rectangle(5,8),
+                new Rectangle(1,5), 
+                new Rectangle(3,9) 
+            };
+            IReportingService reportingSvc = new ReportingService(new PrintPortuguese());
+            //Act
+            string result = reportingSvc.Print(rectangles);
+            //Assert
+            Assert.AreEqual("<h1>Relatório de Formas</h1>3 Retângulos | Area 72 | Perimetro 62 <br/>TOTAL:<br/>3 Formas Perimetro 62 Area 72", result);
         }
 
         [TestCase]
