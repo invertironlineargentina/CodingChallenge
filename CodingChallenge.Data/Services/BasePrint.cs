@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CodingChallenge.Data.Services
 {
-    public abstract class GeneratePrint : IPrint
+    public abstract class BasePrint
     {
         public string CreatePrint(IList<IGeometricForm> geometricForms)
         {
@@ -26,9 +26,9 @@ namespace CodingChallenge.Data.Services
                 {
                     decimal area = g.CalculateArea();
                     decimal perimeter = g.CalculatePerimeter();
-                    if (keyValuePairs.Any(x => x.Key == g.GetType().Name))
+                    var pair = keyValuePairs.Where(x => x.Key == g.GetType().Name).FirstOrDefault();
+                    if (pair.Key != null)
                     {
-                        var pair = keyValuePairs.Where(x => x.Key == g.GetType().Name).FirstOrDefault();
                         area += pair.Value[1];
                         perimeter += pair.Value[2];
                         keyValuePairs[pair.Key] = new decimal[] { (int)pair.Value[0] + 1, area, perimeter };
@@ -36,10 +36,8 @@ namespace CodingChallenge.Data.Services
                     }
                     keyValuePairs.Add(g.GetType().Name, new decimal[] { 1, area, perimeter });
                 }
-                foreach (var kv in keyValuePairs)
-                {
-                    sb.Append(GetLine((int)kv.Value[0], kv.Value[1], kv.Value[2], kv.Key));
-                }
+
+                keyValuePairs.ToList().ForEach(kv => sb.Append(GetLine((int)kv.Value[0], kv.Value[1], kv.Value[2], kv.Key)));
 
                 // FOOTER
                 sb.Append("TOTAL:<br/>");

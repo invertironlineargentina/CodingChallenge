@@ -58,6 +58,7 @@
     <Compile Include="Domain\Rectangle.cs" />
     <Compile Include="Domain\EquilateralTriangle.cs" />
     <Compile Include="Domain\Square.cs" />
+    <Compile Include="Interfaces\IReportingService.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,9 +67,9 @@
     <Compile Include="Interfaces\IGeometricForm.cs" />
     <Compile Include="Interfaces\IPrint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GeneratePrint.cs" />
+    <Compile Include="Services\BasePrint.cs" />
     <Compile Include="Services\PrintEnglish.cs" />
-    <Compile Include="Services\PrintService.cs" />
+    <Compile Include="Services\ReportingService.cs" />
     <Compile Include="Services\PrintSpanish.cs" />
     <Compile Include="Properties\Resources.es-ES.Designer.cs">
       <AutoGen>True</AutoGen>
