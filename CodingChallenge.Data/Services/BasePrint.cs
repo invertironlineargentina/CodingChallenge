@@ -7,7 +7,7 @@ namespace CodingChallenge.Data.Services
 {
     public class ReportGeometricForm
     {
-        public int Count { get; set; }
+        public int Count { get; set; } = 1;
         public decimal Area { get; set; }
         public decimal Perimeter { get; set; }
         public string Type { get; set; }
@@ -28,6 +28,7 @@ namespace CodingChallenge.Data.Services
                 sb.Append(Properties.Resources.Header);
 
                 IList<ReportGeometricForm> reportGeometricForms = new List<ReportGeometricForm>();
+
                 foreach (var g in geometricForms)
                 {
                     decimal area = g.CalculateArea();
@@ -45,12 +46,11 @@ namespace CodingChallenge.Data.Services
                     reportGeometricForms.Add(new ReportGeometricForm()
                     {
                         Type = g.GetType().Name,
-                        Count = 1,
                         Area = area,
                         Perimeter = perimeter
                     });
-
                 }
+
                 reportGeometricForms.ToList().ForEach(x => sb.Append(GetLine(x.Count, x.Area, x.Perimeter, x.Type)));
 
                 // FOOTER
