@@ -5,6 +5,13 @@ using System.Text;
 
 namespace CodingChallenge.Data.Services
 {
+    public class ReportGeometricForm
+    {
+        public int Count { get; set; }
+        public decimal Area { get; set; }
+        public decimal Perimeter { get; set; }
+        public string Type { get; set; }
+    }
     public abstract class BasePrint
     {
         public string CreatePrint(IList<IGeometricForm> geometricForms)
@@ -20,30 +27,37 @@ namespace CodingChallenge.Data.Services
                 // HEADER
                 sb.Append(Properties.Resources.Header);
 
-                Dictionary<string, decimal[]> keyValuePairs = new Dictionary<string, decimal[]>();
-
+                IList<ReportGeometricForm> reportGeometricForms = new List<ReportGeometricForm>();
                 foreach (var g in geometricForms)
                 {
                     decimal area = g.CalculateArea();
                     decimal perimeter = g.CalculatePerimeter();
-                    var pair = keyValuePairs.Where(x => x.Key == g.GetType().Name).FirstOrDefault();
-                    if (pair.Key != null)
+
+                    var r = reportGeometricForms.FirstOrDefault(x => x.Type == g.GetType().Name);
+                    if (r != null)
                     {
-                        area += pair.Value[1];
-                        perimeter += pair.Value[2];
-                        keyValuePairs[pair.Key] = new decimal[] { (int)pair.Value[0] + 1, area, perimeter };
+                        var i = reportGeometricForms.IndexOf(r);
+                        reportGeometricForms[i].Area += area;
+                        reportGeometricForms[i].Perimeter += perimeter;
+                        reportGeometricForms[i].Count++;
                         continue;
                     }
-                    keyValuePairs.Add(g.GetType().Name, new decimal[] { 1, area, perimeter });
-                }
+                    reportGeometricForms.Add(new ReportGeometricForm()
+                    {
+                        Type = g.GetType().Name,
+                        Count = 1,
+                        Area = area,
+                        Perimeter = perimeter
+                    });
 
-                keyValuePairs.ToList().ForEach(kv => sb.Append(GetLine((int)kv.Value[0], kv.Value[1], kv.Value[2], kv.Key)));
+                }
+                reportGeometricForms.ToList().ForEach(x => sb.Append(GetLine(x.Count, x.Area, x.Perimeter, x.Type)));
 
                 // FOOTER
                 sb.Append("TOTAL:<br/>");
-                sb.Append($"{keyValuePairs.Sum(x => x.Value[0])} {Properties.Resources.Shapes} ");
-                sb.Append($"{Properties.Resources.Perimeter} {keyValuePairs.Sum(x => x.Value[2]):#.##} ");
-                sb.Append($"{Properties.Resources.Area} {keyValuePairs.Sum(x => x.Value[1]):#.##}");
+                sb.Append($"{reportGeometricForms.Sum(x => x.Count)} {Properties.Resources.Shapes} ");
+                sb.Append($"{Properties.Resources.Perimeter} {reportGeometricForms.Sum(x => x.Perimeter):#.##} ");
+                sb.Append($"{Properties.Resources.Area} {reportGeometricForms.Sum(x => x.Area):#.##}");
             }
 
             return sb.ToString();
