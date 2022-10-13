@@ -49,7 +49,7 @@ namespace CodingChallenge.Data.Services
             return sb.ToString();
         }
 
-        private static string GetLine(int count, decimal area, decimal perimeter, string type)
+        private string GetLine(int count, decimal area, decimal perimeter, string type)
         {
             if (count > 0)
             {
@@ -59,7 +59,7 @@ namespace CodingChallenge.Data.Services
             return string.Empty;
         }
 
-        private static string TranslateForm(string type, int count)
+        private string TranslateForm(string type, int count)
         {
             string single = Properties.Resources.ResourceManager.GetString(type);
             string plural = Properties.Resources.ResourceManager.GetString(type + "Plural");
