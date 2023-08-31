@@ -1,13 +1,4 @@
-﻿/*
- * Refactorear la clase para respetar principios de programación orientada a objetos. Qué pasa si debemos soportar un nuevo idioma para los reportes, o
- * agregar más formas geométricas?
- *
- * Se puede hacer cualquier cambio que se crea necesario tanto en el código como en los tests. La única condición es que los tests pasen OK.
- *
- * TODO: Implementar Trapecio/Rectangulo, agregar otro idioma a reporting.
- * */
-
-using CodingChallenge.Data.Classes.Formas;
+﻿using CodingChallenge.Data.Classes.Formas;
 using CodingChallenge.Data.Enums;
 using System;
 using System.Collections.Generic;
@@ -18,18 +9,18 @@ namespace CodingChallenge.Data.Classes
 {
     public class FormaGeometrica
     {
-        protected readonly decimal _lado;
-        protected readonly decimal _alto;
-        protected readonly decimal _anchoSuperior;
+        private readonly decimal _ancho;
+        private readonly decimal _alto;
+        private readonly decimal _anchoSuperior;
 
         public TipoForma TipoForma { get; set; }
 
 
-        public FormaGeometrica(TipoForma tipo, decimal ancho, decimal alto = 0m, decimal anchoSuperior = 0m)
+        public FormaGeometrica(TipoForma tipo, decimal alto, decimal ancho = 0m,  decimal anchoSuperior = 0m)
         {
             TipoForma = tipo;
-            _lado = ancho;
             _alto = alto;
+            _ancho = ancho;
             _anchoSuperior = anchoSuperior;
         }
 
@@ -37,10 +28,20 @@ namespace CodingChallenge.Data.Classes
         {
             string contenido;
 
-            if (totalItems == 0)
-                contenido = idioma == Idioma.Castellano ? "Lista vacía de formas!" : "Empty list of shapes!";
-            else
-                contenido = idioma == Idioma.Castellano ? "Reporte de Formas" : "Shapes report";
+            switch (idioma)
+            {
+                case Idioma.Castellano:
+                    contenido = totalItems == 0 ? "Lista vacía de formas!" : "Reporte de Formas";
+                    break;
+                case Idioma.Ingles:
+                    contenido = totalItems == 0 ? "Empty list of shapes!" : "Shapes report";
+                    break;
+                case Idioma.Italiano:
+                    contenido = totalItems == 0 ? "Elenco vuoto di forme!" : "Rapporto sui moduli";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             return $"<h1>{contenido}</h1>";
         }
@@ -55,16 +56,11 @@ namespace CodingChallenge.Data.Classes
 
             var sumatoriaAreas = 0m;
             var sumatoriaPerimetros = 0m;
-            var formasAcum = new List<IBuilder>();
+            var formasAcum = new List<IFormasBuilder>();
 
             formas.ForEach(f =>
             {
-                IBuilder forma;
-                if (f.TipoForma == TipoForma.Cuadrado) forma = Cuadrado.GetInstancia(f._lado);
-                else if (f.TipoForma == TipoForma.Circulo) forma = Circulo.GetInstancia(f._lado);
-                else if (f.TipoForma == TipoForma.TrianguloEquilatero) forma = Triangulo.GetInstancia(f._lado);
-                else forma = Cuadrado.GetInstancia(f._lado);
-                
+                FormasBuilder forma = GetFormaGeometrica(f.TipoForma, f._alto, f._ancho, f._anchoSuperior);
 
                 if (formasAcum.FirstOrDefault(fa => fa.TipoForma == f.TipoForma) == null) formasAcum.Add(forma);
                 sumatoriaAreas += forma.CalcularArea();
@@ -79,10 +75,29 @@ namespace CodingChallenge.Data.Classes
             // FOOTER
             sb.Append("TOTAL:<br/>");
             sb.Append(formas.Count() + " " + TraducirForma(idioma, formas.Count()) + " ");
-            sb.Append((idioma == Idioma.Castellano ? "Perimetro " : "Perimeter ") + sumatoriaPerimetros.ToString("#.##") + " ");
+            sb.Append((idioma == Idioma.Ingles ? "Perimeter " : "Perimetro ") + sumatoriaPerimetros.ToString("#.##") + " ");
             sb.Append("Area " + sumatoriaAreas.ToString("#.##"));
 
             return sb.ToString();
+        }
+
+        public static FormasBuilder GetFormaGeometrica (TipoForma tipo, decimal alto, decimal ancho, decimal anchoSuperior )
+        {
+            switch(tipo)
+            {
+                case TipoForma.Cuadrado: 
+                    return Cuadrado.GetInstancia(alto);
+                case TipoForma.Circulo:
+                    return Circulo.GetInstancia(alto);
+                case TipoForma.TrianguloEquilatero:
+                    return Triangulo.GetInstancia(alto);
+                case TipoForma.Rectangulo:
+                    return Rectangulo.GetInstancia(alto, ancho);
+                case TipoForma.Trapecio:
+                    return Trapecio.GetInstancia(alto, ancho, anchoSuperior);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public static string TraducirForma(Idioma idioma, int cantidad)

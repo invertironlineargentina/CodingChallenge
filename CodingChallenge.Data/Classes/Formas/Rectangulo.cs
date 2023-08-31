@@ -7,73 +7,46 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes.Formas
 {
-    internal class Rectangulo : IBuilder
+    internal class Rectangulo : FormasBuilder
     {
         private static Rectangulo _instancia = null;
-        private decimal _lado;
+        private decimal _alto;
         private decimal _ancho;
-
-        private int _cantidad = 0;
-        private decimal _perimetroAcum = 0m;
-        private decimal _areaAcum = 0m;
-
-        public TipoForma TipoForma { get; set; }
 
         private Rectangulo() 
         {
             TipoForma = TipoForma.Rectangulo;
         }
 
-        public static Rectangulo GetInstancia(decimal lado, decimal ancho)
+        public static Rectangulo GetInstancia(decimal alto, decimal ancho)
         {
             if (_instancia == null)
             {
                 _instancia = new Rectangulo();
             }
 
-            _instancia._lado = lado;
+            _instancia._alto = alto;
             _instancia._ancho = ancho;
             _instancia._cantidad++;
 
             return _instancia;
         }
 
-        public decimal CalcularArea()
+        public override decimal CalcularArea()
         {
-            var area = _lado * _ancho;
+            var area = _alto * _ancho;
             _areaAcum += area;
             return area;
         }
 
-        public decimal CalcularPerimetro()
+        public override decimal CalcularPerimetro()
         {
-            var per = 2*_lado + 2*_ancho;
+            var per = 2 * _alto + 2 * _ancho;
             _perimetroAcum += per;
             return per;
         }
 
-        public string ObtenerLinea(Idioma idioma)
-        {
-            // TODO agregar italiano
-            if (_cantidad > 0)
-            {
-                if (idioma == Idioma.Castellano)
-                    return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimetro {_perimetroAcum:#.##} <br/>";
-
-                return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimeter {_perimetroAcum:#.##} <br/>";
-            }
-
-            return string.Empty;
-        }
-
-        public void Reset()
-        {
-            _cantidad = 0;
-            _perimetroAcum = 0m;
-            _areaAcum = 0m;
-        }
-
-        public string TraducirForma(Idioma idioma)
+        public override string TraducirForma(Idioma idioma)
         {
             switch (idioma)
             {

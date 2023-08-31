@@ -65,7 +65,7 @@
     <Compile Include="Classes\Formas\Rectangulo.cs" />
     <Compile Include="Classes\Formas\Trapecio.cs" />
     <Compile Include="Classes\Formas\Triangulo.cs" />
-    <Compile Include="Classes\IBuilder.cs" />
+    <Compile Include="Classes\IFormasBuilder.cs" />
     <Compile Include="Classes\FormaGeometrica.cs" />
     <Compile Include="Classes\Formas\Circulo.cs" />
     <Compile Include="Classes\Formas\Cuadrado.cs" />

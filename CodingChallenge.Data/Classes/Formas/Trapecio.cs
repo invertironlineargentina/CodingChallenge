@@ -7,32 +7,26 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes.Formas
 {
-    internal class Trapecio : IBuilder
+    internal class Trapecio : FormasBuilder
     {
         private static Trapecio _instancia = null;
-        private decimal _lado;
+        private decimal _alto;
         private decimal _ancho;
         private decimal _anchoSuperior;
-
-        private int _cantidad = 0;
-        private decimal _perimetroAcum = 0m;
-        private decimal _areaAcum = 0m;
-
-        public TipoForma TipoForma { get; set; }
 
         private Trapecio()
         {
             TipoForma = TipoForma.TrianguloEquilatero;
         }
 
-        public static Trapecio GetInstancia(decimal lado, decimal ancho, decimal anchoSuperior)
+        public static Trapecio GetInstancia(decimal alto, decimal ancho, decimal anchoSuperior)
         {
             if (_instancia == null)
             {
                 _instancia = new Trapecio();
             }
 
-            _instancia._lado = lado;
+            _instancia._alto = alto;
             _instancia._ancho = ancho;
             _instancia._anchoSuperior = anchoSuperior;
             _instancia._cantidad++;
@@ -40,54 +34,37 @@ namespace CodingChallenge.Data.Classes.Formas
             return _instancia;
         }
 
-        public decimal CalcularArea()
+        public override decimal CalcularArea()
         {
-            var area = ((_ancho + _anchoSuperior) / 2) * _lado;
+            decimal lado;
+            if ( _ancho > _anchoSuperior)
+                lado = _anchoSuperior + ((_ancho - _anchoSuperior) / 2);
+            else
+                lado = _ancho + ((_anchoSuperior - _ancho) / 2);
+
+            var area = lado * _alto;
             _areaAcum += area;
             return area;
         }
 
-        public decimal CalcularPerimetro()
+        public override decimal CalcularPerimetro()
         {
-            var anchoMenor = _ancho > _anchoSuperior ? _anchoSuperior : _ancho;
-            decimal cateto;
+            decimal lado;
 
-            if (anchoMenor == _ancho) cateto = (_anchoSuperior - _ancho) / 2;
-            else cateto = (_anchoSuperior - _ancho) / 2;
+            if (_anchoSuperior > _ancho) lado = (_anchoSuperior - _ancho) / 2;
+            else lado = (_ancho - _anchoSuperior) / 2;
 
-            var ladoDiagonal = Math.Sqrt(Math.Pow((double)cateto, 2) + Math.Pow((double)_lado, 2));
-
+            var ladoDiagonal = Math.Sqrt(Math.Pow((double)lado, 2) + Math.Pow((double)_alto, 2));
             var per = _ancho + _anchoSuperior + ((decimal)ladoDiagonal * 2);
             _perimetroAcum += per;
             return per;
         }
 
-        public string ObtenerLinea(Idioma idioma)
-        {
-            // TODO agregar italiano
-            if (_cantidad > 0)
-            {
-                if (idioma == Idioma.Castellano)
-                    return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimetro {_perimetroAcum:#.##} <br/>";
-
-                return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimeter {_perimetroAcum:#.##} <br/>";
-            }
-
-            return string.Empty;
-        }
-
-        public void Reset()
-        {
-            _cantidad = 0;
-            _perimetroAcum = 0m;
-            _areaAcum = 0m;
-        }
-
-        public string TraducirForma(Idioma idioma)
+        public override string TraducirForma(Idioma idioma)
         {
             switch (idioma)
             {
-                case Idioma.Castellano: return _cantidad > 1 ? "Trapecios" : "Trapecios";
+                case Idioma.Castellano: return _cantidad > 1 ? "Trapecios" : "Trapecio";
                 case Idioma.Italiano: return _cantidad > 1 ? "Trapezi" : "Trapezio";
                 default: return _cantidad > 1 ? "Trapezoids" : "Trapeze";
             }

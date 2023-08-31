@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes
 {
-    internal interface IBuilder
+    internal interface IFormasBuilder
     {
-        // TODO ver si se deben implementar cantidad, perimetro y area
         TipoForma TipoForma { get; }
         void Reset();
         decimal CalcularPerimetro();

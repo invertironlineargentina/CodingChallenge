@@ -7,71 +7,44 @@ using System.Threading.Tasks;
 
 namespace CodingChallenge.Data.Classes.Formas
 {
-    internal class Circulo : IBuilder
+    internal class Circulo : FormasBuilder
     {
         private static Circulo _instancia = null;
-        private decimal _lado;
-
-        private int _cantidad = 0;
-        private decimal _perimetroAcum = 0m;
-        private decimal _areaAcum = 0m;
-
-        public TipoForma TipoForma { get; set; }
+        private decimal _diametro;
 
         private Circulo()
         {
             TipoForma = TipoForma.Circulo;
         }
 
-        public static Circulo GetInstancia(decimal lado)
+        public static Circulo GetInstancia(decimal diametro)
         {
             if (_instancia == null)
             {
                 _instancia = new Circulo();
             }
 
-            _instancia._lado = lado;
+            _instancia._diametro = diametro;
             _instancia._cantidad++;
 
             return _instancia;
         }
 
-        public decimal CalcularArea()
+        public override decimal CalcularArea()
         {
-            var area = (decimal)Math.PI * (_lado / 2) * (_lado / 2);
+            var area = (decimal)Math.PI * (_diametro / 2) * (_diametro / 2);
             _areaAcum += area;
             return area;
         }
 
-        public decimal CalcularPerimetro()
+        public override decimal CalcularPerimetro()
         {
-            var per = (decimal)Math.PI * _lado;
+            var per = (decimal)Math.PI * _diametro;
             _perimetroAcum += per;
             return per;
         }
 
-        public string ObtenerLinea(Idioma idioma)
-        {
-            // TODO agregar italiano
-            if (_cantidad > 0)
-            {
-                if (idioma == Idioma.Castellano)
-                    return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimetro {_perimetroAcum:#.##} <br/>";
-
-                return $"{_cantidad} {TraducirForma(idioma)} | Area {_areaAcum:#.##} | Perimeter {_perimetroAcum:#.##} <br/>";
-            }
-
-            return string.Empty;
-        }
-
-        public void Reset()
-        {
-            _cantidad = 0;
-            _perimetroAcum = 0m;
-            _areaAcum = 0m;
-        }
-
-        public string TraducirForma(Idioma idioma)
+        public override string TraducirForma(Idioma idioma)
         {
             switch (idioma)
             {
